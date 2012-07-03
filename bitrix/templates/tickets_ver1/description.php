@@ -1,0 +1,1 @@
+<?$arTemplate = Array("NAME"=>"Билеты _ версия 1", "DESCRIPTION"=>"");?>

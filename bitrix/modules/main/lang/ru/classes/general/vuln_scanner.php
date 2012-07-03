@@ -1,0 +1,31 @@
+<?
+$MESS["VULNSCAN_SIMILAR"] = "Аналогично";
+$MESS["VULNSCAN_REQUIRE"] = "Необходимые условия";
+$MESS["VULNSCAN_FILE"] = "Файл";
+$MESS["VULNSCAN_XSS_NAME"] = "Cross-Site Scripting";
+$MESS["VULNSCAN_XSS_HELP"] = "Злоумышленник может выполнить произвольный HTML/JS код в контексте браузера жерты. Рекомендуется фильтровать переменные перед выводом в HTML/JS код.<br>Подробнее: <a href=\"https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)\">https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)</a>";
+$MESS["VULNSCAN_HEADER_NAME"] = "HTTP Response Splitting";
+$MESS["VULNSCAN_HEADER_HELP"] = "Злоумышленник, внедряя произвольный заголовок в HTTP ответ, может выполнить атаку с использованием перенаправления или же вставкой произвольного HTML/JS кода. Рекомендуется фильтровать переводы строк перед выводом в заголовок ответа. Актуально для PHP < 5.4. Подробнее: <a href=\"http://www.infosecwriters.com/text_resources/pdf/HTTP_Response.pdf\">http://www.infosecwriters.com/text_resources/pdf/HTTP_Response.pdf</a>";
+$MESS["VULNSCAN_DATABASE_NAME"] = "SQL Injection";
+$MESS["VULNSCAN_DATABASE_HELP"] = "Злоумышленник может внедрять произвольные SQL комманды, передаваемые серверу. Это крайне опасно, рекомендуется фильтровать пользовательские данные перед их использованием. Подробнее: <a href=\"https://www.owasp.org/index.php/SQL_Injection\">https://www.owasp.org/index.php/SQL_Injection</a>";
+$MESS["VULNSCAN_INCLUDE_NAME"] = "File Inclusion";
+$MESS["VULNSCAN_INCLUDE_HELP"] = "Злоумышленник может подключать локальные/удаленные файлы или же читать произвольные файлы ресурса. Рекомендуется делать нормализацию пути в пользовательских данных перед их использованием. Подробнее: <a href=\"https://rdot.org/forum/showthread.php?t=343\">https://rdot.org/forum/showthread.php?t=343</a>";
+$MESS["VULNSCAN_EXEC_NAME"] = "Выполнение произвольных комманд";
+$MESS["VULNSCAN_EXEC_HELP"] = "Злоумышленник может выполнять произвольные системные комманды, это крайне опасно. Подробнее: <a href=\"https://www.owasp.org/index.php/Code_Injection\">https://www.owasp.org/index.php/Code_Injection</a>";
+$MESS["VULNSCAN_CODE_NAME"] = "Выполнение произвольного кода";
+$MESS["VULNSCAN_CODE_HELP"] = "Злоумышленник может внедрить и выполнить произвольный PHP код. Подробнее: <a href=\"http://cwe.mitre.org/data/definitions/78.html\">http://cwe.mitre.org/data/definitions/78.html</a>";
+$MESS["VULNSCAN_POP_NAME"] = "Сериализация данных";
+$MESS["VULNSCAN_POP_HELP"] = "Десериализация пользовательских данных может быть достаточно опасна. Подробнее: <a href=\"https://rdot.org/forum/showthread.php?t=950\">https://rdot.org/forum/showthread.php?t=950</a>";
+$MESS["VULNSCAN_OTHER_NAME"] = "Потенциальное изменение логики работы";
+$MESS["VULNSCAN_OTHER_HELP"] = "Описание отсутсвует";
+$MESS["VULNSCAN_UNKNOWN"] = "Подозрение на уязвимость";
+$MESS["VULNSCAN_UNKNOWN_HELP"] = "Описание отсутсвует";
+$MESS["VULNSCAN_HELP_INPUT"] = "Источник";
+$MESS["VULNSCAN_HELP_FUNCTION"] = "Функция/метод";
+$MESS["VULNSCAN_HELP_VULNTYPE"] = "Тип уязвимости";
+$MESS["VULNSCAN_FIULECHECKED"] = "Проверенно файлов: ";
+$MESS["VULNSCAN_VULNCOUNTS"] = " Найдено потенциальных проблем: ";
+$MESS["VULNSCAN_DYNAMIC_FUNCTION"] = "Вызов динамической функции!";
+$MESS["VULNSCAN_EXTRACT"] = "Ранее инициализированные переменные могут быть переопределены!";
+$MESS["VULNSCAN_TOKENIZER_NOT_INSTALLED"] = "PHP расширение tokenizer не включенно, пожалуйста включите его для завершения тестирования.";
+?>

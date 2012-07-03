@@ -1,0 +1,71 @@
+﻿body{
+background-color:#EFEFEF;
+}
+
+b{
+font-weight:bold;
+}
+
+#content{
+width: 944px;
+margin:0 auto;
+background-color:#FFF;
+}
+#footer{
+text-align:center;
+padding:10px 10px 10px 10px;
+}
+.notwork{
+color: red;
+}
+.hide{
+display:none;
+}
+
+
+/* Меню в админке */
+.adminMenu {
+margin:10px 0;
+}
+.adminMenu li
+{
+display: inline;
+list-style-type: none;
+padding:5px 10px;
+}
+.adminMenu li:hover{
+background-color:#CCC;
+}
+.adminMenu li:hover a{
+color:#222;
+}
+
+/* Оформление таблицы модерации */
+.modT{
+border-collapse: collapse;
+margin: 20px 0;
+}
+.modT .modT-head{
+text-align:center;
+font-size: 1.1em;
+font-weight:bold;
+background-color: #DDD;
+}
+.modT .modT-head TD, .modT .modT-body TD, .modT .modT-bottom TD{
+padding:5px;
+border:1px solid #DDD;
+/*vertical-align:middle;*/
+}
+.modT .modT-head TD{
+border:1px solid #CCC;
+}
+
+.modT .modT-body INPUT.text{
+	width:300px;
+	padding:3px;
+}
+.modT .modT-body TEXTAREA{
+	width:400px;
+	height:100px;
+	padding:3px;
+}

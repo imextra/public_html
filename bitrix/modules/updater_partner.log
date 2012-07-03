@@ -1,0 +1,18 @@
+2012-06-11 12:33:45 -  - exec CUpdateClientPartner::GetUpdatesList
+2012-06-11 12:33:45 -  - exec CUpdateClientPartner::__CollectRequestData
+2012-06-11 12:33:45 -  - utf=Y&lang=ru&stable=Y&CANGZIP=Y&SUPD_DBS=MYSQL&XE=N&CLIENT_SITE=to&LICENSE_KEY=X&SUPD_STS=1&SUPD_URS=0&SUPD_URSA=2&TYPENC=F&CLIENT_PHPVER=5.2.9&dbv=5.1.33&instm=main%2C11.0.10%2CN%3Bbitrix.sitecorporate%2C11.0.0%2CN%3Bclouds%2C11.0.2%2CN%3Bcompression%2C11.0.0%2CN%3Bfileman%2C11.0.3%2CN%3Biblock%2C11.0.10%2CN%3Bperfmon%2C11.0.2%2CN%3Bsearch%2C11.0.4%2CN%3Bseo%2C11.0.0%2CN%3Bsocialservices%2C11.0.1%2CN&reqm=bitrix.sitecorporate
+2012-06-11 12:33:45 -  - exec CUpdateClientPartner::GetHTTPPage
+2012-06-11 12:33:45 -  - TIME GetUpdatesList(request) 0.618 sec
+2012-06-11 12:33:45 -  - exec CUpdateClientPartner::ParseServerData
+2012-06-11 12:34:11 -  - exec CUpdateClientPartner::GetUpdatesList
+2012-06-11 12:34:11 -  - exec CUpdateClientPartner::__CollectRequestData
+2012-06-11 12:34:11 -  - utf=Y&lang=ru&stable=Y&CANGZIP=Y&SUPD_DBS=MYSQL&XE=N&CLIENT_SITE=to&LICENSE_KEY=X&SUPD_STS=1&SUPD_URS=0&SUPD_URSA=2&TYPENC=F&CLIENT_PHPVER=5.2.9&dbv=5.1.33&instm=main%2C11.0.10%2CN%3Bbitrix.sitecorporate%2C11.0.0%2CN%3Bclouds%2C11.0.2%2CN%3Bcompression%2C11.0.0%2CN%3Bfileman%2C11.0.3%2CN%3Biblock%2C11.0.10%2CN%3Bperfmon%2C11.0.2%2CN%3Bsearch%2C11.0.4%2CN%3Bseo%2C11.0.0%2CN%3Bsocialservices%2C11.0.1%2CN&reqm=bitrix.sitecorporate
+2012-06-11 12:34:11 -  - exec CUpdateClientPartner::GetHTTPPage
+2012-06-11 12:34:11 -  - TIME GetUpdatesList(request) 0.567 sec
+2012-06-11 12:34:11 -  - exec CUpdateClientPartner::ParseServerData
+2012-06-11 12:34:49 -  - exec CUpdateClientPartner::GetUpdatesList
+2012-06-11 12:34:49 -  - exec CUpdateClientPartner::__CollectRequestData
+2012-06-11 12:34:49 -  - utf=Y&lang=ru&stable=Y&CANGZIP=Y&SUPD_DBS=MYSQL&XE=N&CLIENT_SITE=to&LICENSE_KEY=X&SUPD_STS=1&SUPD_URS=0&SUPD_URSA=2&TYPENC=F&CLIENT_PHPVER=5.2.9&dbv=5.1.33&instm=main%2C11.0.10%2CN%3Bbitrix.sitecorporate%2C11.0.0%2CN%3Bclouds%2C11.0.2%2CN%3Bcompression%2C11.0.0%2CN%3Bfileman%2C11.0.3%2CN%3Biblock%2C11.0.10%2CN%3Bperfmon%2C11.0.2%2CN%3Bsearch%2C11.0.4%2CN%3Bseo%2C11.0.0%2CN%3Bsocialservices%2C11.0.1%2CN&reqm=bitrix.sitecorporate
+2012-06-11 12:34:49 -  - exec CUpdateClientPartner::GetHTTPPage
+2012-06-11 12:34:49 -  - TIME GetUpdatesList(request) 0.602 sec
+2012-06-11 12:34:49 -  - exec CUpdateClientPartner::ParseServerData

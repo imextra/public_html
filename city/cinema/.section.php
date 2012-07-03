@@ -1,0 +1,6 @@
+<?
+$sSectionName = "Кинотеатры";
+$arDirProperties = Array(
+
+);
+?>

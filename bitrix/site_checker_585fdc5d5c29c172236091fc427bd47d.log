@@ -1,0 +1,147 @@
+2012-Jul-03 19:02:00 Наличие необходимых модулей php (check_php_modules): Ok
+Успешно
+2012-Jul-03 19:02:01 Обязательные параметры PHP (check_php_settings): Ok
+Успешно
+2012-Jul-03 19:02:01 Значения переменных сервера (check_server_vars): Fail
+Текущий домен не валидный (to). Может содержать только цифры, латинские буквы и дефис. Должен содержать точку.
+
+2012-Jul-03 19:02:01 Параметры настройки UTF (mbstring и константа BX_UTF) (check_mbstring): Ok
+Успешно. Сайт работает в UTF кодировке
+2012-Jul-03 19:02:01 Установка параметра pcre.backtrack_limit (check_backtrack_limit): Ok
+Успешно
+2012-Jul-03 19:02:01 Настройки сайтов (check_sites): Ok
+Успешно
+2012-Jul-03 19:02:01 Работа с сокетами (check_socket): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:02 Лишний вывод в файлах конфигурации (check_dbconn): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:02 Загрузка файла (check_upload): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:02 Загрузка файла больше 4Мб (check_upload_big): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:02 Загрузка файла через php://input (check_upload_raw): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:03 Передача POST запроса с большим числом параметров (check_post): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:03 Отправка почты (check_mail): Fail
+
+Warning:  mail() [function.mail]: "sendmail_from" not set in php.ini or custom "From:" header missing in C:\xampp\homeserver\to\public_html\bitrix\modules\main\admin\site_checker.php on line 1148
+
+Ошибка
+2012-Jul-03 19:02:03 Отправка почтового сообщения больше 64Кб (check_mail_big): Fail
+
+Warning:  mail() [function.mail]: "sendmail_from" not set in php.ini or custom "From:" header missing in C:\xampp\homeserver\to\public_html\bitrix\modules\main\admin\site_checker.php on line 1148
+
+Ошибка
+2012-Jul-03 19:02:03 Проверка на наличие неотправленных сообщений (check_mail_b_event): Ok
+Успешно
+2012-Jul-03 19:02:03 Внутреннее перенаправление (функция LocalRedirect) (check_localredirect): Ok
+50% done
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:03 Внутреннее перенаправление (функция LocalRedirect) (check_localredirect): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:04 Фактическое ограничение памяти (check_memory_limit): Ok
+14% done
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:04 Фактическое ограничение памяти (check_memory_limit): Ok
+28% done
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:04 Фактическое ограничение памяти (check_memory_limit): Ok
+42% done
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:04 Фактическое ограничение памяти (check_memory_limit): Ok
+57% done
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:04 Фактическое ограничение памяти (check_memory_limit): Ok
+71% done
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:05 Фактическое ограничение памяти (check_memory_limit): Ok
+85% done
+Connection to to:80
+== Request ==
+GET /bitrix/admin/site_checker.php?memory_test=Y&unique_id=b945788a1804f9fcb94b9c78380ee85c&max=511 HTTP/1.1
+Host: to
+
+
+== Response ==
+HTTP/1.1 200 OK
+Date: Tue, 03 Jul 2012 15:02:05 GMT
+Server: Apache/2.2.11 (Win32) DAV/2 mod_ssl/2.2.11 OpenSSL/0.9.8i PHP/5.2.9
+X-Powered-By: PHP/5.2.9
+Content-Length: 223
+Content-Type: text/html
+
+== Body ==
+
+Fatal error:  Allowed memory size of 536870912 bytes exhausted (tried to allocate 1048577 bytes) in C:\xampp\homeserver\to\public_html\bitrix\modules\main\admin\site_checker.php on line 89
+
+==========
+Успешно
+2012-Jul-03 19:02:05 Фактическое ограничение памяти (check_memory_limit): Ok
+Connection to to:80
+Не менее 384 М
+2012-Jul-03 19:02:05 Сохранение сессии (check_session): Ok
+50% done
+Успешно
+2012-Jul-03 19:02:05 Сохранение сессии (check_session): Ok
+Успешно
+2012-Jul-03 19:02:06 Сохранение сессии без UserAgent (check_session_ua): Ok
+50% done
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:06 Сохранение сессии без UserAgent (check_session_ua): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:06 Работа с файлами кеша (check_cache): Ok
+Успешно
+2012-Jul-03 19:02:06 Доступ к серверу обновлений (check_update): Ok
+Успешно
+2012-Jul-03 19:02:07 HTTP авторизация (check_http_auth): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:07 Создание и запуск файла (check_exec): Ok
+Connection to to:80
+Успешно
+2012-Jul-03 19:02:07 Модуль suhosin отключен (check_suhosin): Ok
+Успешно
+2012-Jul-03 19:02:07 Модуль Apache mod_security отключен (check_security): Ok
+Успешно
+2012-Jul-03 19:02:07 Константа BX_CRONTAB (не должна быть определена) (check_bx_crontab): Ok
+Успешно
+2012-Jul-03 19:02:07 Разделитель дробной части (check_divider): Ok
+Успешно
+2012-Jul-03 19:02:08 Значение параметра precision (не менее 10) (check_precision): Ok
+Успешно
+2012-Jul-03 19:02:08 Передача объектов по ссылке (check_clone): Ok
+Успешно
+2012-Jul-03 19:02:08 Функция getimagesize для swf (check_getimagesize): Ok
+Успешно
+2012-Jul-03 19:02:08 Версия MySQL сервера (check_mysql_bug_version): Ok
+Успешно
+2012-Jul-03 19:02:09 Время на БД и веб сервере (check_mysql_time): Ok
+Успешно
+2012-Jul-03 19:02:09 Режим работы MySQL (check_mysql_mode): Ok
+Успешно
+2012-Jul-03 19:02:09 Значение auto_increment в MySQL (check_mysql_increment): Ok
+Успешно
+2012-Jul-03 19:02:09 Кодировка соединения (check_mysql_connection_charset): Ok
+CHARSET=utf8, COLLATION=utf8_unicode_ci
+Успешно
+2012-Jul-03 19:02:09 Кодировка базы данных (check_mysql_db_charset): Ok
+CHARSET=utf8, COLLATION=utf8_unicode_ci
+Успешно
+2012-Jul-03 19:02:10 Кодировки таблиц в БД (check_mysql_table_charset): Ok
+Успешно
