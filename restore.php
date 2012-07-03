@@ -20,8 +20,8 @@ else
 if(!defined("START_EXEC_TIME"))
 	define("START_EXEC_TIME", microtime(true));
 
-define("STEP_TIME", defined('VMBITRIX') ? 10 : 5);
- define("DELAY", defined('VMBITRIX') ? 0 : 3); // reserved
+define("STEP_TIME", defined('VMBITRIX') ? 10 : 4);
+define("DELAY", defined('VMBITRIX') ? 0 : 2); // reserved
 
 if (function_exists('mb_internal_encoding'))
 {
