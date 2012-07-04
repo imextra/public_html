@@ -12,7 +12,7 @@ $APPLICATION->SetTitle("Фильмы");
 );?>
 <pre>
 1. Должна быть форма фильтрации фильма!
-
+movie.moderation.filter.view.all - компонент
 форма фильтрации должна распологаться на самом верху страницы и содержать значения по умолчанию для загружаемой страницы
 Фильмы должны фильтровать:
 - по названию (английскому названию) - значение по умолчанию - пусто
@@ -22,7 +22,7 @@ $APPLICATION->SetTitle("Фильмы");
 2. Список фильмов, отфильтрованый по дате премьеры
 особенности компонента:
 - на странице по 20 записей
-- формат вывода - | Порядковый номер записи в таблице [ID - фильма] | Название [ID - фильма] | Год выпуска фильма ||||||
+- формат вывода - | Порядковый номер записи в таблице [ID - фильма] | Название [ID - фильма] | Год выпуска фильма | Добавить постеры | Добавить видеотрейлеры ||||
 
 
 3. 
@@ -36,8 +36,52 @@ $APPLICATION->SetTitle("Фильмы");
 Режиссер - Миха белых, Сергей (связано с инфоблоком - Персоны)
 Актеры - Миха белых, Сергей (связано с инфоблоком - Персоны)
  
+4. Ссылка "добавить фильм"
 
-
+5. 
 
 </pre>
+
+
+<?$APPLICATION->IncludeComponent("extra:movie.moderation.filter.view.all", "ver1", array(
+	"IBLOCK_TYPE" => "kinoafisha",
+	"IBLOCK_ID" => "13",
+	"AJAX_MODE" => "N",
+	"AJAX_OPTION_JUMP" => "N",
+	"AJAX_OPTION_STYLE" => "Y",
+	"AJAX_OPTION_HISTORY" => "N",
+	"VIEW_GROUPS" => array(
+		0 => "2",
+	),
+	"ADMIN_GROUPS" => array(
+		0 => "7",
+	),
+	"AJAX_OPTION_ADDITIONAL" => ""
+	),
+	false
+);?>
+
+<?$APPLICATION->IncludeComponent("extra:movie.moderation.view.all", "ver1", array(
+	"IBLOCK_TYPE" => "kinoafisha",
+	"IBLOCK_ID" => "13",
+	"AJAX_MODE" => "N",
+	"AJAX_OPTION_JUMP" => "N",
+	"AJAX_OPTION_STYLE" => "Y",
+	"AJAX_OPTION_HISTORY" => "N",
+	"VIEW_GROUPS" => array(
+		0 => "2",
+	),
+	"ADMIN_GROUPS" => array(
+		0 => "7",
+	),
+	"AJAX_OPTION_ADDITIONAL" => ""
+	),
+	false
+);?>
+
+
+
+
+
+
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
