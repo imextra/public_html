@@ -45,12 +45,12 @@ else{
 			),
 		),
 		array(
-			'NAME'=>'#Кинотеатры',
+			'NAME'=>'Кинотеатры',
 			'CODE'=>'CINEMAS',
 			'ACCESS'=>array('CINEMA_GROUPS'),
 			'SUB_MENU'=>array(
 				array(
-					'NAME'=>'#Кинотеатры',
+					'NAME'=>'Кинотеатры',
 					'URL'=>'/moderation/cinema/',
 				),
 				array(

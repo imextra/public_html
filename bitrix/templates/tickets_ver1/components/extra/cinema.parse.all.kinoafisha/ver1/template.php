@@ -2,6 +2,8 @@
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
 
+echo returnErrorMessage('Необходимо обновить компонент граббинга!!!');
+
 
 $retHtml = '';
 if(!$arParams['ACCESS']['VIEW_GROUPS']){
