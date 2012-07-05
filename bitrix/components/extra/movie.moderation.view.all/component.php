@@ -1,30 +1,23 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
 ### Настроки из .parameters.php
-$arParams["IBLOCK_TYPE"] = trim($arParams["IBLOCK_TYPE"]);
-if(strlen($arParams["IBLOCK_TYPE"])<=0)
- 	$arParams["IBLOCK_TYPE"] = "news";
+$arParams["IBLOCK_TYPE_MOVIE"] = trim($arParams["IBLOCK_TYPE_MOVIE"]);
+if(strlen($arParams["IBLOCK_TYPE_MOVIE"])<=0)
+ 	$arParams["IBLOCK_TYPE_MOVIE"] = "news";
 
-$arParams["IBLOCK_ID"] = intval($arParams["IBLOCK_ID"]);
-
-
-$arParams["ID"] = intval($arParams["ID"]);
-/*
-Если есть редактирование
-!empty($_POST['ID']) ? $_POST['ID'] = intval($_POST['ID']) : $_POST['ID'] = 0;
-if(!empty($_POST['ID'])){
-	if($arParams["ID"] != $_POST['ID']){
-		$arParams["ID"] = $_POST['ID'];
-	}
-}
-if (empty($_POST['ID'])){
-	$_POST['ID'] = $arParams["ID"];
-}
-*/
+$arParams["IBLOCK_ID_MOVIE"] = intval($arParams["IBLOCK_ID_MOVIE"]);
 
 $arParams["COUNT_ELEMENTS"] = intval($arParams["COUNT_ELEMENTS"]);
 if(empty($arParams["COUNT_ELEMENTS"]))
 	$arParams["COUNT_ELEMENTS"] = 30;
+
+
+$arParams["FILTER_NAME"] = 'arrFilter';
+global $$arParams["FILTER_NAME"];
+$arrFilter = ${$arParams["FILTER_NAME"]};
+if(!is_array($arrFilter))
+	$arrFilter = array();
+	
 ### Настроки из .parameters.php
 
 
@@ -46,14 +39,6 @@ if(!empty($arGroupsList) && count($arGroupsList)>0){
 	}
 }
 ### Управление правами пользователей
-### Редактирование элементов
-$arParams['EDIT']['REDIRECT'] = false; # Разрешить redirect страницы 
-$arParams['EDIT']['REDIRECT'] = true; # Разрешить redirect страницы 
-
-$arParams['EDIT']['UPDATE'] = false; # Разрешить обновлять элементы на странице
-$arParams['EDIT']['UPDATE'] = true; # Разрешить обновлять элементы на странице
-### Редактирование элементов
-
 
 ### Определяем город пользователя
 if(!empty($_GET['CITY']) && !empty($GLOBALS['CITY'][$_GET['CITY']])){
@@ -90,19 +75,17 @@ else{
 		return;
 	}
 
-	$arResult['LOG'][] = 'Подключаем модуль fileman... Для работы с редактором';
-	CModule::IncludeModule("fileman");
 	
-	
-	$arResult['TF']['FIRST'] = array('ID','NAME');
-	$arResult['TF']['SECOND'] = array();
+	$arResult['TF']['FIRST'] = array('ID','NAME','ACTIVE');
+	$arResult['TF']['SECOND'] = array('YEAR');
 	$arResult['TF']['ALL'] = array_merge($arResult['TF']['FIRST'],$arResult['TF']['SECOND']);
 
+/*
 	$arResult['TF2']['FIRST'] = array('ID','NAME');
 	$arResult['TF2']['SECOND'] = array();
 	$arResult['TF2']['ALL'] = array_merge($arResult['TF2']['FIRST'],$arResult['TF2']['SECOND']);
-	
-	$arResult['LOG'][] = 'Формируем SELECT запрос для компаний...';
+ */	
+	$arResult['LOG'][] = 'Формируем SELECT запрос...';
 	$arSelect = array(
 		'IBLOCK_ID',
 		'PROPERTY_*',
@@ -111,20 +94,32 @@ else{
 	
 
 	$arFilter = array(
-		"IBLOCK_ID" => $arParams["IBLOCK_ID"],
+		"IBLOCK_ID" => $arParams["IBLOCK_ID_MOVIE"],
 		"CHECK_PERMISSIONS" => "Y",
-		"ACTIVE" =>'Y',
-		"PROPERTY_CITY" => $arParams['CITY']['ID'],
+		// "ACTIVE" =>'Y',
+		// "PROPERTY_CITY" => $arParams['CITY']['ID'],
 	);
+
+	### фильтры дополнительные
+	if(false && !empty($_GET['arrFilter_ff']['NAME'])){
+		$arFilterTemp = array(
+				"LOGIC" => "OR",
+				array("?NAME" => $_GET['arrFilter_ff']['NAME']),
+				array("?PROPERTY_NAME_SHORT" => $_GET['arrFilter_ff']['NAME']),
+			);
+		if(!empty($arResult['ITEMS_IDS']) && count($arResult['ITEMS_IDS'])>0){
+			$arFilterTemp[] = array("ID" => $arResult['ITEMS_IDS']);
+		}
+		$arFilter[] = $arFilterTemp;
+	}
 
 	// echo '<pre>',print_r($arFilter),'</pre>';
 
-	$arNav = false;
-/* 	$arNav = array(
+ 	$arNav = array(
 		'bShowAll' => false,
 		'nPageSize' => $arParams["COUNT_ELEMENTS"],
 	);
- */	
+
 	$arSort = array(
 		'NAME' => 'ASC',
 	);
@@ -133,13 +128,14 @@ else{
 
 	$rsElement = CIBlockElement::GetList($arSort,$arFilter, false, $arNav, $arSelect);
 
-/* 	$arResult['LOG'][] = 'Настройки постраничной навигации...';
-	$arResult["LIST_CNT"] = $rsElement->SelectedRowsCount();
-	$arParams["NAV_ON_PAGE"] = intval($arParams["COUNT_ELEMENTS"]);
-	$rsElement->NavStart($arParams["NAV_ON_PAGE"],false);
+ 	$arResult['LOG'][] = 'Настройки постраничной навигации...';
+	$arResult['NAV']["LIST_CNT"] = $rsElement->SelectedRowsCount();
+	$rsElement->NavStart($arParams["COUNT_ELEMENTS"],false);
 	$rsElement->nPageWindow = 5;
-	$arResult["NAV_STRING"] = $rsElement->GetPageNavString(GetMessage("IBLOCK_LIST_PAGES_TITLE"), "", true);
- */	
+	$arResult['NAV']["NAV_STRING"] = $rsElement->GetPageNavString(GetMessage("IBLOCK_LIST_PAGES_TITLE"), "", true);
+	### $GLOBALS['NavFirstRecordShow'] - данную переменную добавил сам в компоненте components\bitrix\system.pagenavigation\component.php
+	(!empty($GLOBALS['NavFirstRecordShow'])) ? $arResult['NAV']["START_ELEMENT"] = $GLOBALS['NavFirstRecordShow'] : $arResult['NAV']["START_ELEMENT"] = 0;
+	
 	$arResult['ITEMS'] = array();
 	while($obElement = $rsElement->GetNextElement())
 	{
@@ -156,12 +152,16 @@ else{
 			$arTempTemp[$tempTitle] = $arTemp['PROPERTIES'][$tempTitle]['VALUE'];
 		}
 
-		if(!emptyString($arTempTemp['PREVIEW_PICTURE'])){
-			$arTempTemp['PREVIEW_PICTURE'] = CFile::GetFileArray($arTempTemp['PREVIEW_PICTURE']);
-		}
+		
+		# Дополнительные настройки
+		(!emptyString($arTempTemp['ACTIVE']) && $arTempTemp['ACTIVE'] == 'Y') ? $arTempTemp['ACTIVE'] = true : $arTempTemp['ACTIVE'] = false;
+		
+		// if(!emptyString($arTempTemp['PREVIEW_PICTURE'])){
+			// $arTempTemp['PREVIEW_PICTURE'] = CFile::GetFileArray($arTempTemp['PREVIEW_PICTURE']);
+		// }
 		
 		$arResult['ITEMS'][$arTempTemp['ID']] = $arTempTemp;
-	
+		// echo '<pre>',print_r($arTempTemp),'</pre>';
 	}	
 }
 

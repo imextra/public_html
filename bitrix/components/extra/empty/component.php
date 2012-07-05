@@ -25,6 +25,13 @@ if (empty($_POST['ID'])){
 $arParams["COUNT_ELEMENTS"] = intval($arParams["COUNT_ELEMENTS"]);
 if(empty($arParams["COUNT_ELEMENTS"]))
 	$arParams["COUNT_ELEMENTS"] = 30;
+
+$arParams["FILTER_NAME"] = 'arrFilter';
+global $$arParams["FILTER_NAME"];
+$arrFilter = ${$arParams["FILTER_NAME"]};
+if(!is_array($arrFilter))
+	$arrFilter = array();
+
 ### Настроки из .parameters.php
 
 
@@ -116,6 +123,17 @@ else{
 		"ACTIVE" =>'Y',
 		"PROPERTY_CITY" => $arParams['CITY']['ID'],
 	);
+	if(!empty($_GET['arrFilter_ff']['NAME'])){
+		$arFilterTemp = array(
+				"LOGIC" => "OR",
+				array("?NAME" => $_GET['arrFilter_ff']['NAME']),
+				array("?PROPERTY_NAME_SHORT" => $_GET['arrFilter_ff']['NAME']),
+			);
+		if(!empty($arResult['ITEMS_IDS']) && count($arResult['ITEMS_IDS'])>0){
+			$arFilterTemp[] = array("ID" => $arResult['ITEMS_IDS']);
+		}
+		$arFilter[] = $arFilterTemp;
+	}
 
 	// echo '<pre>',print_r($arFilter),'</pre>';
 
@@ -134,11 +152,12 @@ else{
 	$rsElement = CIBlockElement::GetList($arSort,$arFilter, false, $arNav, $arSelect);
 
 /* 	$arResult['LOG'][] = 'Настройки постраничной навигации...';
-	$arResult["LIST_CNT"] = $rsElement->SelectedRowsCount();
-	$arParams["NAV_ON_PAGE"] = intval($arParams["COUNT_ELEMENTS"]);
-	$rsElement->NavStart($arParams["NAV_ON_PAGE"],false);
+	$arResult['NAV']["LIST_CNT"] = $rsElement->SelectedRowsCount();
+	$rsElement->NavStart($arParams["COUNT_ELEMENTS"],false);
 	$rsElement->nPageWindow = 5;
-	$arResult["NAV_STRING"] = $rsElement->GetPageNavString(GetMessage("IBLOCK_LIST_PAGES_TITLE"), "", true);
+	$arResult['NAV']["NAV_STRING"] = $rsElement->GetPageNavString(GetMessage("IBLOCK_LIST_PAGES_TITLE"), "", true);
+	### $GLOBALS['NavFirstRecordShow'] - данную переменную добавил сам в компоненте components\bitrix\system.pagenavigation\component.php
+	(!empty($GLOBALS['NavFirstRecordShow'])) ? $arResult['NAV']["START_ELEMENT"] = $GLOBALS['NavFirstRecordShow'] : $arResult['NAV']["START_ELEMENT"] = 0;
  */	
 	$arResult['ITEMS'] = array();
 	while($obElement = $rsElement->GetNextElement())

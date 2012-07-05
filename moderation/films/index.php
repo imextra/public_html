@@ -45,16 +45,15 @@ movie.moderation.filter.view.all - компонент
 
 <?$APPLICATION->IncludeComponent("extra:movie.moderation.filter.view.all", "ver1", array(
 	"IBLOCK_TYPE" => "kinoafisha",
-	"IBLOCK_ID" => "13",
+	"IBLOCK_ID" => "17",
 	"AJAX_MODE" => "N",
 	"AJAX_OPTION_JUMP" => "N",
 	"AJAX_OPTION_STYLE" => "Y",
 	"AJAX_OPTION_HISTORY" => "N",
+	"SELECTED_GROUPS" => array(
+	),
 	"VIEW_GROUPS" => array(
 		0 => "2",
-	),
-	"ADMIN_GROUPS" => array(
-		0 => "7",
 	),
 	"AJAX_OPTION_ADDITIONAL" => ""
 	),
@@ -62,17 +61,22 @@ movie.moderation.filter.view.all - компонент
 );?>
 
 <?$APPLICATION->IncludeComponent("extra:movie.moderation.view.all", "ver1", array(
-	"IBLOCK_TYPE" => "kinoafisha",
-	"IBLOCK_ID" => "13",
+	"IBLOCK_TYPE_MOVIE" => "kinoafisha",
+	"IBLOCK_ID_MOVIE" => "17",
+	"FILTER_NAME" => "arrFilter",
+	"COUNT_ELEMENTS" => "30",
 	"AJAX_MODE" => "N",
 	"AJAX_OPTION_JUMP" => "N",
 	"AJAX_OPTION_STYLE" => "Y",
 	"AJAX_OPTION_HISTORY" => "N",
 	"VIEW_GROUPS" => array(
-		0 => "2",
+		0 => "8",
+	),
+	"MODER_GROUPS" => array(
+		0 => "10",
 	),
 	"ADMIN_GROUPS" => array(
-		0 => "7",
+		0 => "10",
 	),
 	"AJAX_OPTION_ADDITIONAL" => ""
 	),

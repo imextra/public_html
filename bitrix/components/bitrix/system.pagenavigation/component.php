@@ -99,8 +99,8 @@ if (is_object($arParams["NAV_RESULT"]) &&  is_subclass_of($arParams["NAV_RESULT"
 			$NavLastRecordShow = $dbresult->NavRecordCount;
 	}
 
-	$arResult["NavFirstRecordShow"] = $NavFirstRecordShow;
-	$arResult["NavLastRecordShow"] = $NavLastRecordShow;
+	$GLOBALS['NavFirstRecordShow'] = $arResult["NavFirstRecordShow"] = $NavFirstRecordShow;
+	$GLOBALS['NavLastRecordShow'] = $arResult["NavLastRecordShow"] = $NavLastRecordShow;
 
 	$this->IncludeComponentTemplate();
 

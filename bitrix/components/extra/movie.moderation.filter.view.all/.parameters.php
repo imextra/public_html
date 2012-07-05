@@ -15,9 +15,6 @@ $db_iblock = CIBlock::GetList(Array("SORT"=>"ASC"), Array("SITE_ID"=>$_REQUEST["
 while($arRes = $db_iblock->Fetch())
 	$arIBlocks[$arRes["ID"]] = $arRes["NAME"];
 
-
-	
-	
 $arGroups = array();
 $rsGroups = CGroup::GetList($by="c_sort", $order="asc", Array("ACTIVE" => "Y"));
 while ($arGroup = $rsGroups->Fetch())
@@ -25,13 +22,13 @@ while ($arGroup = $rsGroups->Fetch())
 	$arGroups[$arGroup["ID"]] = $arGroup["NAME"];
 }
 
-
 $arComponentParameters = array(
 	"GROUPS" => array(
 	),
 	"PARAMETERS" => array(
 		"AJAX_MODE" => array(), // управление режимом ajax 
-		"IBLOCK_TYPE" => Array(
+/*
+ 		"IBLOCK_TYPE" => Array(
 			"PARENT" => "BASE",
 			"NAME" => 'IBLOCK_TYPE COMPANY',
 			"TYPE" => "LIST",
@@ -48,14 +45,15 @@ $arComponentParameters = array(
 			"ADDITIONAL_VALUES" => "Y",
 			"REFRESH" => "Y",
 		),
-		"SELECTED_GROUPS" => array(
-			"PARENT" => "ACCESS",
-			"NAME" => 'Пользователей, которые могут редактировать счета',
-			"TYPE" => "LIST",
-			"MULTIPLE" => "Y",
-			"ADDITIONAL_VALUES" => "N",
-			"VALUES" => $arGroups,
-		),
+ */
+		// "SELECTED_GROUPS" => array(
+			// "PARENT" => "ACCESS",
+			// "NAME" => 'Пользователей, которые могут редактировать счета',
+			// "TYPE" => "LIST",
+			// "MULTIPLE" => "Y",
+			// "ADDITIONAL_VALUES" => "N",
+			// "VALUES" => $arGroups,
+		// ),
 		"VIEW_GROUPS" => array(
 			"PARENT" => "ACCESS",
 			"NAME" => 'VIEW_GROUPS',

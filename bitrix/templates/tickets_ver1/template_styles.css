@@ -51,6 +51,10 @@ font-size: 1.1em;
 font-weight:bold;
 background-color: #DDD;
 }
+
+.modT .modT-attention{
+background-color: #EEE;
+}
 .modT .modT-head TD, .modT .modT-body TD, .modT .modT-bottom TD{
 padding:5px;
 border:1px solid #DDD;

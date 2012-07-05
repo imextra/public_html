@@ -10,10 +10,10 @@ while($arRes = $db_iblock_type->Fetch())
 	if($arIBType = CIBlockType::GetByIDLang($arRes["ID"], LANG))
 		$arTypes[$arRes["ID"]] = $arIBType["NAME"];
 
-$arIBlocks=Array();
-$db_iblock = CIBlock::GetList(Array("SORT"=>"ASC"), Array("SITE_ID"=>$_REQUEST["site"], "TYPE" => ($arCurrentValues["IBLOCK_TYPE"]!="-"?$arCurrentValues["IBLOCK_TYPE"]:"")));
+$arIBlocksMovies=Array();
+$db_iblock = CIBlock::GetList(Array("SORT"=>"ASC"), Array("SITE_ID"=>$_REQUEST["site"], "TYPE" => ($arCurrentValues["IBLOCK_TYPE_MOVIE"]!="-"?$arCurrentValues["IBLOCK_TYPE_MOVIE"]:"")));
 while($arRes = $db_iblock->Fetch())
-	$arIBlocks[$arRes["ID"]] = $arRes["NAME"];
+	$arIBlocksMovies[$arRes["ID"]] = $arRes["NAME"];
 
 $arGroups = array();
 $rsGroups = CGroup::GetList($by="c_sort", $order="asc", Array("ACTIVE" => "Y"));
@@ -28,7 +28,7 @@ $arComponentParameters = array(
 	),
 	"PARAMETERS" => array(
 		"AJAX_MODE" => array(),
-		"IBLOCK_TYPE" => Array(
+		"IBLOCK_TYPE_MOVIE" => Array(
 			"PARENT" => "BASE",
 			"NAME" => 'IBLOCK_TYPE _ MOVIE',
 			"TYPE" => "LIST",
@@ -36,20 +36,20 @@ $arComponentParameters = array(
 			"DEFAULT" => "news",
 			"REFRESH" => "Y",
 		),
-		"IBLOCK_ID" => Array(
+		"IBLOCK_ID_MOVIE" => Array(
 			"PARENT" => "BASE",
 			"NAME" => 'IBLOCK_ID _ MOVIE',
 			"TYPE" => "LIST",
-			"VALUES" => $arIBlocks,
+			"VALUES" => $arIBlocksMovies,
 			"DEFAULT" => '',
 			"ADDITIONAL_VALUES" => "Y",
 			"REFRESH" => "Y",
 		),
-		"ID" => array(
+		"FILTER_NAME" => array(
 			"PARENT" => "BASE",
-			"NAME" => 'ID',
+			"NAME" => 'FILTER_NAME',
 			"TYPE" => "STRING",
-			"DEFAULT" => '={$_REQUEST["ID"]}',
+			"DEFAULT" => 'arrFilter',
 		),
 		"COUNT_ELEMENTS" => Array(
 			"PARENT" => "BASE",

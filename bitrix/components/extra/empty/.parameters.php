@@ -51,6 +51,12 @@ $arComponentParameters = array(
 			"TYPE" => "STRING",
 			"DEFAULT" => '={$_REQUEST["ID"]}',
 		),
+		"FILTER_NAME" => array(
+			"PARENT" => "BASE",
+			"NAME" => 'FILTER_NAME',
+			"TYPE" => "STRING",
+			"DEFAULT" => 'arrFilter',
+		),
 		"COUNT_ELEMENTS" => Array(
 			"PARENT" => "BASE",
 			"NAME" => 'COUNT_ELEMENTS',
