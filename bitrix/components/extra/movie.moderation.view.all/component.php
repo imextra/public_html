@@ -112,8 +112,10 @@ else{
 		}
 		$arFilter[] = $arFilterTemp;
 	}
+	$arFilter = array_merge($arFilter,$arrFilter);
 
-	// echo '<pre>',print_r($arFilter),'</pre>';
+
+	// echo '<pre>',print_r($arrFilter),'</pre>';
 
  	$arNav = array(
 		'bShowAll' => false,

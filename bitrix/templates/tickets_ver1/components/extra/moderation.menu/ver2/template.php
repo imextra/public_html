@@ -74,7 +74,7 @@ else{
 				),
 				array(
 					'NAME'=>'#Фильмы',
-					'URL'=>'/moderation/films/',
+					'URL'=>'/moderation/movies/',
 				),
 				array(
 					'NAME'=>'Персоны',

@@ -31,7 +31,7 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 	$retHtml .= 'Фильмы:';
 	$retHtml .= '<br />';
 	$retHtml .= '<br />';
-	$retHtml .= '<a id="addCinemaButton" href="/moderation/film/edit/">Добавить фильм</a>';
+	$retHtml .= '<a id="addCinemaButton" href="/moderation/movies/edit/">Добавить фильм</a>';
 
 	if(!emptyArray($arResult['ITEMS'])){
 		$retHtml .= '<table class="modT">';
@@ -65,7 +65,7 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 					$retHtml .= $i;				
 				$retHtml .= '</td>';
 				$retHtml .= '<td>';
-					$retHtml .= '<a href="/moderation/film/edit/?ID='.$arItem['ID'].'" title="'.$arItem['NAME'].'">';
+					$retHtml .= '<a href="/moderation/movies/edit/?ID='.$arItem['ID'].'" title="'.$arItem['NAME'].'">';
 						$retHtml .= $arItem['NAME'];
 					$retHtml .= '</a>';
 					$retHtml .= ' ';
@@ -75,12 +75,12 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 					$retHtml .= ''.$arItem['YEAR'].'';
 				$retHtml .= '</td>';
 				$retHtml .= '<td>';
-					$retHtml .= '<a href="#/moderation/film/edit/?ID='.$arItem['ID'].'" title="'.$arItem['NAME'].'">';
+					$retHtml .= '<a href="#/moderation/movies/edit/?ID='.$arItem['ID'].'" title="'.$arItem['NAME'].'">';
 					$retHtml .= 'постер';
 					$retHtml .= '</a>';
 				$retHtml .= '</td>';
 				$retHtml .= '<td>';
-					$retHtml .= '<a href="#/moderation/film/edit/?ID='.$arItem['ID'].'" title="'.$arItem['NAME'].'">';
+					$retHtml .= '<a href="#/moderation/movies/edit/?ID='.$arItem['ID'].'" title="'.$arItem['NAME'].'">';
 					$retHtml .= 'трейлер';
 					$retHtml .= '</a>';
 				$retHtml .= '</td>';

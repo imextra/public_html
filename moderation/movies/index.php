@@ -44,16 +44,12 @@ movie.moderation.filter.view.all - компонент
 
 
 <?$APPLICATION->IncludeComponent("extra:movie.moderation.filter.view.all", "ver1", array(
-	"IBLOCK_TYPE" => "kinoafisha",
-	"IBLOCK_ID" => "17",
 	"AJAX_MODE" => "N",
 	"AJAX_OPTION_JUMP" => "N",
 	"AJAX_OPTION_STYLE" => "Y",
 	"AJAX_OPTION_HISTORY" => "N",
-	"SELECTED_GROUPS" => array(
-	),
 	"VIEW_GROUPS" => array(
-		0 => "2",
+		0 => "10",
 	),
 	"AJAX_OPTION_ADDITIONAL" => ""
 	),
