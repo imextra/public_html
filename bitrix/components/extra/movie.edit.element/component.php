@@ -1,11 +1,18 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
 ### Настроки из .parameters.php
-$arParams["IBLOCK_TYPE"] = trim($arParams["IBLOCK_TYPE"]);
-if(strlen($arParams["IBLOCK_TYPE"])<=0)
- 	$arParams["IBLOCK_TYPE"] = "news";
+$arTempFields = array('IBLOCK_TYPE_FILM','IBLOCK_TYPE_PERSONS','IBLOCK_TYPE_COUNTRY','IBLOCK_TYPE_GENRE','IBLOCK_TYPE_DISTRIBUTOR');
+foreach($arTempFields as $tempField){
+	$arParams[$tempField] = trim($arParams[$tempField]);
+	if(strlen($arParams[$tempField])<=0)
+		$arParams[$tempField] = "news";
+}
 
-$arParams["IBLOCK_ID"] = intval($arParams["IBLOCK_ID"]);
+
+$arTempFields = array('IBLOCK_ID_COUNTRY','IBLOCK_ID_GENRE','IBLOCK_ID_DISTRIBUTOR','IBLOCK_ID_PERSONS','IBLOCK_ID_FILM');
+foreach($arTempFields as $tempField){
+	$arParams[$tempField] = intval($arParams[$tempField]);
+}
 
 
 $arParams["ID"] = intval($arParams["ID"]);
@@ -180,6 +187,52 @@ else{
 
 	
 	
+	$arResult['COUNTRY'] = array();
+	if(!empty($arParams["IBLOCK_ID_COUNTRY"])){
+	
+		$arResult['LOG'][] = 'Формируем SELECT запрос...';
+		$arSelect = array(
+			'IBLOCK_ID',
+			// 'PROPERTY_*',
+			
+		);
+		$arSelect = array_merge($arSelect,$arResult['TF2']['FIRST']);
+		$arFilter = array(
+			"IBLOCK_ID" => $arParams["IBLOCK_ID_COUNTRY"],
+			"CHECK_PERMISSIONS" => "Y",
+			"ACTIVE" =>'Y',
+		);
+		$arNav = false;
+		$arSort = array(
+			'NAME' => 'ASC',
+		);
+
+		//print_r($arrFilter);
+
+		$rsElement = CIBlockElement::GetList($arSort,$arFilter, false, $arNav, $arSelect);
+		$arResult['COUNTRY'] = array();
+		while($obElement = $rsElement->GetNextElement())
+		{
+			$arTemp = $obElement->GetFields();
+			// $arTemp['PROPERTIES'] = $obElement->GetProperties();
+
+			unset($arTempTemp);
+
+			foreach($arResult['TF2']['FIRST'] as $tempTitle){
+				$arTempTemp[$tempTitle] = $arTemp[$tempTitle];
+			}
+			
+			// foreach($arResult['TF']['SECOND'] as $tempTitle){
+				// $arTempTemp[$tempTitle] = $arTemp['PROPERTIES'][$tempTitle]['VALUE'];
+			// }
+			
+			$arResult['COUNTRY'][$arTempTemp['ID']] = $arTempTemp;
+		
+		}	
+	}
+	
+	
+	
 	$arResult['PERSONS'] = array();
 	if(!empty($arParams["IBLOCK_ID_PERSONS"])){
 	
@@ -226,8 +279,8 @@ else{
 	
 
 	
-	$arResult['DISTRIBUION'] = array();
-	if(!empty($arParams["IBLOCK_ID_DISTRIBUION"])){
+	$arResult['DISTRIBUTOR'] = array();
+	if(!empty($arParams["IBLOCK_ID_DISTRIBUTOR"])){
 	
 		$arResult['LOG'][] = 'Формируем SELECT запрос...';
 		$arSelect = array(
@@ -236,7 +289,7 @@ else{
 		);
 		$arSelect = array_merge($arSelect,$arResult['TF2']['FIRST']);
 		$arFilter = array(
-			"IBLOCK_ID" => $arParams["IBLOCK_ID_DISTRIBUION"],
+			"IBLOCK_ID" => $arParams["IBLOCK_ID_DISTRIBUTOR"],
 			"CHECK_PERMISSIONS" => "Y",
 			"ACTIVE" =>'Y',
 		);
@@ -248,7 +301,7 @@ else{
 		//print_r($arrFilter);
 
 		$rsElement = CIBlockElement::GetList($arSort,$arFilter, false, $arNav, $arSelect);
-		$arResult['DISTRIBUION'] = array();
+		$arResult['DISTRIBUTOR'] = array();
 		while($obElement = $rsElement->GetNextElement())
 		{
 			$arTemp = $obElement->GetFields();
@@ -264,7 +317,7 @@ else{
 				// $arTempTemp[$tempTitle] = $arTemp['PROPERTIES'][$tempTitle]['VALUE'];
 			// }
 			
-			$arResult['DISTRIBUION'][$arTempTemp['ID']] = $arTempTemp;
+			$arResult['DISTRIBUTOR'][$arTempTemp['ID']] = $arTempTemp;
 		
 		}	
 	}
@@ -319,7 +372,7 @@ else{
 	
 	
 
-	echo 'данный блок требует проверки. Строка 322.';
+	// echo 'данный блок требует проверки. Строка 322.';
 	$arResult['LOG'][] = 'Проверяем и обновляем данные если это требуется.';
 	foreach($arResult['TF']['ALL'] as $tempTitle){
 	
@@ -336,46 +389,40 @@ else{
 			}
 		}
 		
-		// Если никакой пункт не выбрать то его не будет в _POST, поэтому делаем проверку
-		if($tempTitle == 'PERSONS_ID' && !empty($_POST["submitUpdateData"])){
-			
-			// $_POST[$tempTitle] = array(339,'asdf',22);
-			if(emptyArray($_POST[$tempTitle])){
-				$_POST[$tempTitle] = array();
-			}else{
-				# Необходимо сравнить со значениями в базе, чтобы лишнее не добавлять
-				unset($tt);
-				unset($arTempRet);
-				foreach($_POST[$tempTitle] as $tt){
-					$tt = intval($tt);
-					if(!emptyArray($arResult['PERSONS']) && !empty($tt) && isset($arResult['PERSONS'][$tt])){
-						$arTempRet[] = $tt;
+		
+		
+		$arTempFields = array(
+			array('NAME'=>'COUNTRY_ID', 'ARRAY_NAME'=> 'COUNTRY'),
+			array('NAME'=>'GENRE_ID', 'ARRAY_NAME'=> 'GENRE'),
+			array('NAME'=>'DIRECTOR_ID', 'ARRAY_NAME'=> 'PERSONS'),
+			array('NAME'=>'ACTORS_ID', 'ARRAY_NAME'=> 'PERSONS'),
+			array('NAME'=>'DOUBLE_ID', 'ARRAY_NAME'=> 'PERSONS'),
+		);
+		
+		if(!emptyArray($arTempFields)){
+			foreach($arTempFields as $tempField){
+				// Если никакой пункт не выбрать то его не будет в _POST, поэтому делаем проверку
+				if($tempTitle == $tempField['NAME'] && !empty($_POST["submitUpdateData"])){
+					
+					// $_POST[$tempTitle] = array(339,'asdf',22);
+					if(emptyArray($_POST[$tempTitle])){
+						$_POST[$tempTitle] = array();
+					}else{
+						# Необходимо сравнить со значениями в базе, чтобы лишнее не добавлять
+						unset($tt);
+						unset($arTempRet);
+						foreach($_POST[$tempTitle] as $tt){
+							$tt = intval($tt);
+							if(!emptyArray($arResult[$tempField['ARRAY_NAME']]) && !empty($tt) && isset($arResult[$tempField['ARRAY_NAME']][$tt])){
+								$arTempRet[] = $tt;
+							}
+						}
+						!emptyArray($arTempRet) ? $_POST[$tempTitle] = $arTempRet : $_POST[$tempTitle] = array();
 					}
 				}
-				!emptyArray($arTempRet) ? $_POST[$tempTitle] = $arTempRet : $_POST[$tempTitle] = array();
 			}
 		}
 	
-		// Если никакой пункт не выбрать то его не будет в _POST, поэтому делаем проверку
-		if($tempTitle == 'DISTRIBUION_ID' && !empty($_POST["submitUpdateData"])){
-
-			// $_POST[$tempTitle] = array(339,'asdf',22);
-			
-			if(emptyArray($_POST[$tempTitle])){
-				$_POST[$tempTitle] = array();
-			}else{
-				# Необходимо сравнить со значениями в базе, чтобы лишнее не добавлять
-				unset($tt);
-				unset($arTempRet);
-				foreach($_POST[$tempTitle] as $tt){
-					$tt = intval($tt);
-					if(!emptyArray($arResult['DISTRIBUION']) && !empty($tt) && isset($arResult['DISTRIBUION'][$tt])){
-						$arTempRet[] = $tt;
-					}
-				}
-				!emptyArray($arTempRet) ? $_POST[$tempTitle] = $arTempRet : $_POST[$tempTitle] = array();
-			}
-		}
 	
 		if(isset($_POST[$tempTitle])){
 			$arResult['LOG'][] = 'POST: '.$tempTitle.'='.$_POST[$tempTitle];
@@ -442,7 +489,7 @@ else{
 		$arResult['LOG'][] = 'Обрабатываем данные формы...';
 		
 		$arUpdateValues = array();
-		$arUpdateValues["IBLOCK_ID"] = $arParams["IBLOCK_ID"];
+		$arUpdateValues["IBLOCK_ID"] = $arParams["IBLOCK_ID_FILM"];
 		
 		foreach($arResult['TF']['FIRST'] as $tempTitle){
 			$arUpdateValues[$tempTitle] = $arResult['ITEM'][$tempTitle];
@@ -540,18 +587,18 @@ else{
 }
 
 
-
 /*
+?>
 <table>
 	<tr>
 		<td><?php  echo '<pre>',print_r($_POST),'</pre>'; ?></td>
 		<td><?php  echo '<pre>',print_r($arResult['ITEM']),'</pre>'; ?></td>
 	</tr>
 </table>
-*/
-?>
 <?php
-	
+*/	
+
+
 	// echo '<pre>',print_r($_FILES),'</pre>';
 	// $arResult['asdf'] = CFile::MakeFileArray($_FILES['PREVIEW_PICTURE']);
 	// echo '<pre>',print_r($arParams),'</pre>';

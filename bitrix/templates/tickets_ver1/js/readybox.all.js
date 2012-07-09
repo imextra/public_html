@@ -11,11 +11,11 @@ $(function() {
 		}
 	});	
 	
-	var PREVIEW_PICTURE_MOVIE_MAX_FILESIZE = (1024)*100; // 100KB
+	var PREVIEW_PICTURE_MOVIE_MAX_FILESIZE = (1024)*400; // 100KB
 	$('#PREVIEW_PICTURE_MOVIE').bind('change', function() {
 		if(PREVIEW_PICTURE_MOVIE_MAX_FILESIZE < this.files[0].size){
 			$('#PREVIEW_PICTURE_MOVIE').val('');
-			showDialog('Ошибка ввода', 'Размер файла слишком большой!',300, 'error');
+			showDialog('Ошибка ввода', '!!!Размер файла слишком большой!',300, 'error');
 		}
 	});	
 	

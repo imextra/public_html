@@ -59,7 +59,12 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 		
 		$retHtml .= '<tr class="modT-body">';
 			$retHtml .= '<td>Название:</td>';
-			$retHtml .= '<td><input type="text" class="text" name="NAME" value="'.$arResult['ITEM']['NAME'].'" /></td>';
+			$retHtml .= '<td><input type="text" class="text" name="NAME" id="NAME" value="'.$arResult['ITEM']['NAME'].'" /><image id="name_link" title="Генерация кода из названия" class="linked" src="/bitrix/themes/.default/icons/iblock/link.gif" onclick="set_linked()" /></td>';
+		$retHtml .= '</tr>';
+		
+		$retHtml .= '<tr class="modT-body">';
+			$retHtml .= '<td>Символьный код:</td>';
+			$retHtml .= '<td><input type="text" class="text" name="CODE" id="CODE" value="'.$arResult['ITEM']['CODE'].'" /><image id="code_link" title="Генерация кода из названия" class="linked" src="/bitrix/themes/.default/icons/iblock/link.gif" onclick="set_linked()" /></td>';
 		$retHtml .= '</tr>';
 		
 		$retHtml .= '<tr class="modT-body">';
@@ -88,20 +93,10 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 		$retHtml .= '</tr>';
 		
 		$retHtml .= '<tr class="modT-body">';
-			$retHtml .= '<td>Год выпуска:</td>';
+			$retHtml .= '<td>Год выхода:</td>';
 			$retHtml .= '<td><input type="text" class="text" name="YEAR" value="'.$arResult['ITEM']['YEAR'].'" /></td>';
 		$retHtml .= '</tr>';
 	
-		$retHtml .= '<tr class="modT-body">';
-			$retHtml .= '<td>Телефон:</td>';
-			$retHtml .= '<td><input type="text" class="text" name="PHONE" value="'.$arResult['ITEM']['PHONE'].'" /></td>';
-		$retHtml .= '</tr>';
-	
-		$retHtml .= '<tr class="modT-body">';
-			$retHtml .= '<td>Ссылка на URL кинотеатра:</td>';
-			$retHtml .= '<td><input type="text" class="text" name="SITE" value="'.$arResult['ITEM']['SITE'].'" /></td>';
-		$retHtml .= '</tr>';
-
 		$retHtml .= '<tr class="modT-body">';
 			$retHtml .= '<td>Описание:</td>';
 			$retHtml .= '<td>';
@@ -133,42 +128,58 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 		$retHtml .= '</tr>';
 
 		$retHtml .= '<tr class="modT-body">';
-			$retHtml .= '<td>Информация о скидках:</td>';
+			$retHtml .= '<td>Страна выхода:</td>';
 			$retHtml .= '<td>';
-				echo $retHtml;
-				
-				$LHE = new CLightHTMLEditor;
-				$LHE->Show(array(
-					'id' => "detail_text",
-					'content' => $arResult['ITEM']['DETAIL_TEXT'],
-					'inputName' => "DETAIL_TEXT",
-					'inputId' => "DETAIL_TEXT",
-					'width' => "100%",
-					'height' => "300px",
-					'bUseFileDialogs' => "N",
-					'bFloatingToolbar' => "N",
-					'bArisingToolbar' => "N",
-					'jsObjName' => "",
-					'toolbarConfig' => array(
-						'Bold', 'Italic', 'Underline', 'RemoveFormat',
-						// 'CreateLink', 'DeleteLink','Image', 'Video','BackColor','ForeColor','JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyFull','InsertOrderedList', 'InsertUnorderedList', 'Outdent', 'Indent','StyleList', 'HeaderList','FontList', 'FontSizeList',
-					),
-				   'videoSettings' => "N"
-				));
-					
+				if(!emptyArray($arResult['COUNTRY'])){
+					$retHtml .= '<select name="COUNTRY_ID[]" multiple="multiple" size="10" style="width:300px">';
+					foreach($arResult['COUNTRY'] as $arMetro){
+						if(!emptyArray($arResult['ITEM']['COUNTRY_ID']) && in_array($arMetro['ID'], $arResult['ITEM']['COUNTRY_ID'])){
+							$selected = ' selected="selected"';
+						}else{
+							$selected = '';
+						}
+						$retHtml .= '<option '.$selected.' value="'.$arMetro['ID'].'">';
+							$retHtml .= $arMetro['NAME'];
+						$retHtml .= '</option>';
+					}
+					$retHtml .= '</select>';
+				}
+			$retHtml .= '</td>';
+		$retHtml .= '</tr>';
 
 
-			$retHtml = '';
+		$retHtml .= '<tr class="modT-body">';
+			$retHtml .= '<td>Жанр фильма:</td>';
+			$retHtml .= '<td>';
+				if(!emptyArray($arResult['GENRE'])){
+					$retHtml .= '<select name="GENRE_ID[]" multiple="multiple" size="10" style="width:300px">';
+					foreach($arResult['GENRE'] as $arMetro){
+						if(!emptyArray($arResult['ITEM']['GENRE_ID']) && in_array($arMetro['ID'], $arResult['ITEM']['GENRE_ID'])){
+							$selected = ' selected="selected"';
+						}else{
+							$selected = '';
+						}
+						$retHtml .= '<option '.$selected.' value="'.$arMetro['ID'].'">';
+							$retHtml .= $arMetro['NAME'];
+						$retHtml .= '</option>';
+					}
+					$retHtml .= '</select>';
+				}
 			$retHtml .= '</td>';
 		$retHtml .= '</tr>';
 
 		$retHtml .= '<tr class="modT-body">';
-			$retHtml .= '<td>Сеть Кинотеатров:</td>';
+			$retHtml .= '<td>Длительность фильма:</td>';
+			$retHtml .= '<td><input type="text" class="text" name="DURATION_TIME" value="'.$arResult['ITEM']['DURATION_TIME'].'" /></td>';
+		$retHtml .= '</tr>';
+
+		$retHtml .= '<tr class="modT-body">';
+			$retHtml .= '<td>Дистрибьютер:</td>';
 			$retHtml .= '<td>';
-				if(!emptyArray($arResult['CINEMA_NETWORK'])){
-					$retHtml .= '<select name="CINEMA_NETWORK_ID" style="width:300px">';
-					foreach($arResult['CINEMA_NETWORK'] as $arCinemaNetwork){
-						if(!empty($arResult['ITEM']['CINEMA_NETWORK_ID']) && ($arCinemaNetwork['ID'] == $arResult['ITEM']['CINEMA_NETWORK_ID'])){
+				if(!emptyArray($arResult['DISTRIBUTOR'])){
+					$retHtml .= '<select name="DISTRIBUTOR_ID" style="width:300px">';
+					foreach($arResult['DISTRIBUTOR'] as $arCinemaNetwork){
+						if(!empty($arResult['ITEM']['DISTRIBUTOR_ID']) && ($arCinemaNetwork['ID'] == $arResult['ITEM']['DISTRIBUTOR_ID'])){
 							$selected = ' selected="selected"';
 						}else{
 							$selected = '';
@@ -183,32 +194,12 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 		$retHtml .= '</tr>';
 
 		$retHtml .= '<tr class="modT-body">';
-			$retHtml .= '<td>Метро:</td>';
+			$retHtml .= '<td>Режиссер:</td>';
 			$retHtml .= '<td>';
-				if(!emptyArray($arResult['METRO'])){
-					$retHtml .= '<select name="METRO_ID[]" multiple="multiple" size="10" style="width:300px">';
-					foreach($arResult['METRO'] as $arMetro){
-						if(!emptyArray($arResult['ITEM']['METRO_ID']) && in_array($arMetro['ID'], $arResult['ITEM']['METRO_ID'])){
-							$selected = ' selected="selected"';
-						}else{
-							$selected = '';
-						}
-						$retHtml .= '<option '.$selected.' value="'.$arMetro['ID'].'">';
-							$retHtml .= $arMetro['NAME'];
-						$retHtml .= '</option>';
-					}
-					$retHtml .= '</select>';
-				}
-			$retHtml .= '</td>';
-		$retHtml .= '</tr>';
-
-		$retHtml .= '<tr class="modT-body">';
-			$retHtml .= '<td>Район:</td>';
-			$retHtml .= '<td>';
-				if(!emptyArray($arResult['BOROUGH'])){
-					$retHtml .= '<select name="BOROUGH_ID[]" multiple="multiple" size="10" style="width:300px">';
-					foreach($arResult['BOROUGH'] as $arMetro){
-						if(!emptyArray($arResult['ITEM']['BOROUGH_ID']) && in_array($arMetro['ID'], $arResult['ITEM']['BOROUGH_ID'])){
+				if(!emptyArray($arResult['PERSONS'])){
+					$retHtml .= '<select name="DIRECTOR_ID[]" multiple="multiple" size="10" style="width:300px">';
+					foreach($arResult['PERSONS'] as $arMetro){
+						if(!emptyArray($arResult['ITEM']['DIRECTOR_ID']) && in_array($arMetro['ID'], $arResult['ITEM']['DIRECTOR_ID'])){
 							$selected = ' selected="selected"';
 						}else{
 							$selected = '';
@@ -223,39 +214,47 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 		$retHtml .= '</tr>';
 
 
-		// $retHtml .= '<tr class="modT-body">';
-			// $retHtml .= '<td>Город:</td>';
-			// $retHtml .= '<td>';
-				// if(!emptyArray($GLOBALS['CITY'])){
-					// $retHtml .= '<select name="CITY" style="width:300px">';
-					// foreach($GLOBALS['CITY'] as $arMetro){
-						// if($arMetro['ID'] == $arResult['ITEM']['CITY']){
-							// $selected = ' selected="selected"';
-						// }else{
-							// $selected = '';
-						// }
-						// $retHtml .= '<option '.$selected.' value="'.$arMetro['ID'].'">';
-							// $retHtml .= $arMetro['NAME'];
-						// $retHtml .= '</option>';
-					// }
-					// $retHtml .= '</select>';
-				// }
-			// $retHtml .= '</td>';
-		// $retHtml .= '</tr>';
-	
-		$retHtml .= '<tr class="modT-head">';
-			$retHtml .= '<td colspan="2"><b>Граббинг:</b></td>';
+		$retHtml .= '<tr class="modT-body">';
+			$retHtml .= '<td>Актеры:</td>';
+			$retHtml .= '<td>';
+				if(!emptyArray($arResult['PERSONS'])){
+					$retHtml .= '<select name="ACTORS_ID[]" multiple="multiple" size="10" style="width:300px">';
+					foreach($arResult['PERSONS'] as $arMetro){
+						if(!emptyArray($arResult['ITEM']['ACTORS_ID']) && in_array($arMetro['ID'], $arResult['ITEM']['ACTORS_ID'])){
+							$selected = ' selected="selected"';
+						}else{
+							$selected = '';
+						}
+						$retHtml .= '<option '.$selected.' value="'.$arMetro['ID'].'">';
+							$retHtml .= $arMetro['NAME'];
+						$retHtml .= '</option>';
+					}
+					$retHtml .= '</select>';
+				}
+			$retHtml .= '</td>';
 		$retHtml .= '</tr>';
 
-		$retHtml .= '<tr class="modT-body">';
-			$retHtml .= '<td>ID на сайте <br/><a alt="www.kinoafisha.info" href="http://www.kinoafisha.info">www.kinoafisha.info</a>:</td>';
-			$retHtml .= '<td><input type="text" class="text" name="KINOAFISHA_ID" value="'.$arResult['ITEM']['KINOAFISHA_ID'].'" /></td>';
-		$retHtml .= '</tr>';
 
 		$retHtml .= '<tr class="modT-body">';
-			$retHtml .= '<td>Название кинотеатра на сайте <br/><a alt="www.kinoafisha.info" href="http://www.kinoafisha.info">www.kinoafisha.info</a>:</td>';
-			$retHtml .= '<td><input type="text" class="text" name="KINOAFISHA_NAME" value="'.$arResult['ITEM']['KINOAFISHA_NAME'].'" /></td>';
+			$retHtml .= '<td>Дублеры:</td>';
+			$retHtml .= '<td>';
+				if(!emptyArray($arResult['PERSONS'])){
+					$retHtml .= '<select name="DOUBLE_ID[]" multiple="multiple" size="10" style="width:300px">';
+					foreach($arResult['PERSONS'] as $arMetro){
+						if(!emptyArray($arResult['ITEM']['DOUBLE_ID']) && in_array($arMetro['ID'], $arResult['ITEM']['DOUBLE_ID'])){
+							$selected = ' selected="selected"';
+						}else{
+							$selected = '';
+						}
+						$retHtml .= '<option '.$selected.' value="'.$arMetro['ID'].'">';
+							$retHtml .= $arMetro['NAME'];
+						$retHtml .= '</option>';
+					}
+					$retHtml .= '</select>';
+				}
+			$retHtml .= '</td>';
 		$retHtml .= '</tr>';
+
 
 		$retHtml .= '<tr class="modT-bottom">';
 			$retHtml .= '<td style="border-right:0px;">';
@@ -274,6 +273,7 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 		$retHtml .= '</table>';
 
 		$retHtml .= '<input type="hidden" name="ID" value="'.$arResult['ITEM']['ID'].'" />';
+		$retHtml .= '<input type="hidden" name="linked_state" id="linked_state" value="Y">';
 
 		$retHtml .= '</form>';
 	
@@ -288,7 +288,73 @@ if(!$arParams['ACCESS']['VIEW_GROUPS']){
 }
 echo $retHtml;
 
+?>
+<script type="text/javascript" src="/bitrix/js/main/core/core_translit.js?1341326831"></script>
+<script type="text/javascript">BX.message({'BING_KEY':'','TRANS_FROM':'а,б,в,г,д,е,ё,ж,з,и,й,к,л,м,н,о,п,р,с,т,у,ф,х,ц,ч,ш,щ,ъ,ы,ь,э,ю,я,А,Б,В,Г,Д,Е,Ё,Ж,З,И,Й,К,Л,М,Н,О,П,Р,С,Т,У,Ф,Х,Ц,Ч,Ш,Щ,Ъ,Ы,Ь,Э,Ю,Я','TRANS_TO':'a,b,v,g,d,e,ye,zh,z,i,y,k,l,m,n,o,p,r,s,t,u,f,kh,ts,ch,sh,shch,,y,,e,yu,ya,A,B,V,G,D,E,YE,ZH,Z,I,Y,K,L,M,N,O,P,R,S,T,U,F,KH,TS,CH,SH,SHCH,,Y,,E,YU,YA'})</script>
+<script type="text/javascript">
+var linked=true;
+function set_linked()
+{
+	linked=!linked;
 
+	var name_link = document.getElementById('name_link');
+	if(name_link)
+	{
+		if(linked)
+			name_link.src='/bitrix/themes/.default/icons/iblock/link.gif';
+		else
+			name_link.src='/bitrix/themes/.default/icons/iblock/unlink.gif';
+	}
+	var code_link = document.getElementById('code_link');
+	if(code_link)
+	{
+		if(linked)
+			code_link.src='/bitrix/themes/.default/icons/iblock/link.gif';
+		else
+			code_link.src='/bitrix/themes/.default/icons/iblock/unlink.gif';
+	}
+	var linked_state = document.getElementById('linked_state');
+	if(linked_state)
+	{
+		if(linked)
+			linked_state.value='Y';
+		else
+			linked_state.value='N';
+	}
+}
+var oldValue = '';
+function transliterate()
+{
+	if(linked)
+	{
+		var from = document.getElementById('NAME');
+		var to = document.getElementById('CODE');
+		if(from && to && oldValue != from.value)
+		{
+			BX.translit(from.value, {
+				'max_len' : 100,
+				'change_case' : 'L',
+				'replace_space' : '-',
+				'replace_other' : '-',
+				'delete_repeat_replace' : true,
+				'use_google' : false,
+				'callback' : function(result){to.value = result; setTimeout('transliterate()', 250);}
+			});
+			oldValue = from.value;
+		}
+		else
+		{
+			setTimeout('transliterate()', 250);
+		}
+	}
+	else
+	{
+		setTimeout('transliterate()', 250);
+	}
+}
+transliterate();
+		</script>
+<?php
 
 	// echo '<pre>',print_r($arParams),'</pre>';
 	// echo '<pre>',print_r($GLOBALS['CITY']),'</pre>';
@@ -296,7 +362,7 @@ echo $retHtml;
 
 if($USER->IsAdmin()){
 	// echo '<pre>',print_r($arParams),'</pre>';
-	// echo '<pre>',print_r($arResult),'</pre>';
+	echo '<pre>',print_r($arResult),'</pre>';
 }
 
 ?>

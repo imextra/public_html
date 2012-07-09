@@ -1,12 +1,18 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
 ### Настроки из .parameters.php
-$arParams["IBLOCK_TYPE"] = trim($arParams["IBLOCK_TYPE"]);
-if(strlen($arParams["IBLOCK_TYPE"])<=0)
- 	$arParams["IBLOCK_TYPE"] = "news";
+$arTempFields = array('IBLOCK_TYPE');
+foreach($arTempFields as $tempField){
+	$arParams[$tempField] = trim($arParams[$tempField]);
+	if(strlen($arParams[$tempField])<=0)
+		$arParams[$tempField] = "news";
+}
 
-$arParams["IBLOCK_ID"] = intval($arParams["IBLOCK_ID"]);
 
+$arTempFields = array('IBLOCK_ID');
+foreach($arTempFields as $tempField){
+	$arParams[$tempField] = intval($arParams[$tempField]);
+}
 
 $arParams["ID"] = intval($arParams["ID"]);
 /*

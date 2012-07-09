@@ -21,7 +21,7 @@ while($arRes = $db_iblock->Fetch())
 	$arIBlocksPersons[$arRes["ID"]] = $arRes["NAME"];
 
 $arIBlocksDistribution=Array();
-$db_iblock = CIBlock::GetList(Array("SORT"=>"ASC"), Array("SITE_ID"=>$_REQUEST["site"], "TYPE" => ($arCurrentValues["IBLOCK_TYPE_DISTRIBUION"]!="-"?$arCurrentValues["IBLOCK_TYPE_DISTRIBUION"]:"")));
+$db_iblock = CIBlock::GetList(Array("SORT"=>"ASC"), Array("SITE_ID"=>$_REQUEST["site"], "TYPE" => ($arCurrentValues["IBLOCK_TYPE_DISTRIBUTOR"]!="-"?$arCurrentValues["IBLOCK_TYPE_DISTRIBUTOR"]:"")));
 while($arRes = $db_iblock->Fetch())
 	$arIBlocksDistribution[$arRes["ID"]] = $arRes["NAME"];
 
@@ -82,17 +82,17 @@ $arComponentParameters = array(
 			"ADDITIONAL_VALUES" => "Y",
 			"REFRESH" => "Y",
 		),
-		"IBLOCK_TYPE_DISTRIBUION" => Array(
+		"IBLOCK_TYPE_DISTRIBUTOR" => Array(
 			"PARENT" => "BASE",
-			"NAME" => 'IBLOCK_TYPE _ DISTRIBUION',
+			"NAME" => 'IBLOCK_TYPE _ DISTRIBUTOR',
 			"TYPE" => "LIST",
 			"VALUES" => $arTypes,
 			"DEFAULT" => "news",
 			"REFRESH" => "Y",
 		),
-		"IBLOCK_ID_DISTRIBUION" => Array(
+		"IBLOCK_ID_DISTRIBUTOR" => Array(
 			"PARENT" => "BASE",
-			"NAME" => 'IBLOCK_ID _ DISTRIBUION',
+			"NAME" => 'IBLOCK_ID _ DISTRIBUTOR',
 			"TYPE" => "LIST",
 			"VALUES" => $arIBlocksDistribution,
 			"DEFAULT" => '',
